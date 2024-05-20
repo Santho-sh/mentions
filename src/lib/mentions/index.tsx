@@ -44,7 +44,7 @@ export function MentionInput({
   }, [showDropdown.show]);
 
   return (
-    <div className="relative flex flex-col items-end gap-4">
+    <div className="relative mt-10 flex flex-col items-end gap-4">
       <Input ref={inputRef} value={value} setValue={setValue} />
 
       <Dropdown

@@ -69,10 +69,11 @@ const Dropdown = ({ show, users, onClose, onSelect }: Props) => {
               onClose();
               break;
           }
+          e.preventDefault();
         }}
       />
 
-      <ul className="space-y-1">
+      <ul className="space-y-1 ">
         {filtered.map((user, index) => {
           return (
             <li
