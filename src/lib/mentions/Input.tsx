@@ -23,7 +23,7 @@ export const Input = forwardRef<HTMLDivElement, Props>(
           }
           break;
         default:
-          if (key.match(/^[\w@+\-\(\)]$/)) {
+          if (key.match(/^[\w@+\-\(\) ]$/)) {
             setValue((str) => str + key);
             event.preventDefault();
           }
@@ -39,7 +39,7 @@ export const Input = forwardRef<HTMLDivElement, Props>(
           className="relative h-24 w-[30rem] overflow-y-scroll rounded bg-white p-4 text-black caret-transparent"
           onKeyDown={handleKeyDown}
         >
-          <GetFormatedText cursor text={value} className="" />
+          <GetFormatedText cursor text={value} />
         </div>
       </>
     );

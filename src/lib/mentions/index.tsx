@@ -19,6 +19,9 @@ export function MentionInput({
   trigger = "@",
 }: props) {
   const [value, setValue] = useState("");
+  const [cursorPosition, setCursorPosition] = useState<[number, number]>([
+    0, 0,
+  ]);
   const [showDropdown, setShowDropdown] = useState({
     show: false,
     position: 0,
@@ -29,6 +32,11 @@ export function MentionInput({
   useEffect(() => {
     if (value.endsWith(trigger)) {
       setShowDropdown({ show: true, position: value.length - 1, search: "" });
+
+      const cursorElement = document.getElementById("cursor");
+      const top = cursorElement?.offsetTop ?? 16;
+      const left = cursorElement?.offsetLeft ?? value.length * 16;
+      setCursorPosition([top, left]);
     } else if (showDropdown.show) {
       if (value.length > showDropdown.position) {
         const search = value.slice(showDropdown.position + 1, value.length);
@@ -54,6 +62,7 @@ export function MentionInput({
           setValue((val) => val.slice(0, showDropdown.position));
           setShowDropdown({ show: false, position: 0, search: "" });
         }}
+        cursorPosition={cursorPosition}
         onSelect={(user: User) => {
           setShowDropdown({ show: false, position: 0, search: "" });
           setValue(
@@ -78,9 +87,6 @@ export function MentionInput({
       >
         Post
       </button>
-
-      {/* temp */}
-      {showDropdown.show ? <p className="text-red-600">Mention</p> : null}
     </div>
   );
 }

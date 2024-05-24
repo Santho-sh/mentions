@@ -61,7 +61,7 @@ export function GetFormatedText({
 
   if (cursor)
     elements.push(
-      <span key="cursor" className="animate-blink ml-0.5">
+      <span key="cursor" id="cursor" className="animate-blink ml-0.5">
         |
       </span>,
     );

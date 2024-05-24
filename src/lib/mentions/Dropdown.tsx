@@ -1,15 +1,21 @@
 import { type User } from "@/app/page";
 import React, { useEffect, useRef, useState } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 type Props = {
   show: boolean;
   users: User[];
+  cursorPosition: [number, number];
   onClose: () => void;
   onSelect: (user: User) => void;
 };
 
-const Dropdown = ({ show, users, onClose, onSelect }: Props) => {
+const Dropdown = ({
+  show,
+  users,
+  cursorPosition,
+  onClose,
+  onSelect,
+}: Props) => {
   const [input, setInput] = useState("");
   const [filtered, setFiltered] = useState<User[]>([]);
   const [selected, setSelected] = useState<number>(-1);
@@ -31,7 +37,8 @@ const Dropdown = ({ show, users, onClose, onSelect }: Props) => {
 
   return (
     <div
-      className={`absolute top-24 h-40 w-52 overflow-y-auto rounded bg-white p-1 text-gray-900 ${show ? "" : "hidden"}`}
+      className={`absolute h-40 w-52 overflow-y-auto rounded border border-gray-300 bg-gray-50 p-1 text-gray-900 shadow-lg ${show ? "" : "hidden"}`}
+      style={{ top: cursorPosition[0], left: cursorPosition[1] }}
     >
       <input
         type="text"
@@ -40,7 +47,6 @@ const Dropdown = ({ show, users, onClose, onSelect }: Props) => {
         className="mb-1 w-full rounded border-2 border-black px-1 py-0.5"
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={(e) => {
-          console.log(e.key);
           switch (e.key) {
             case "ArrowDown": {
               if (selected < filtered.length - 1) {
@@ -63,13 +69,13 @@ const Dropdown = ({ show, users, onClose, onSelect }: Props) => {
                 setSelected(-1);
                 setInput("");
               }
+              e.preventDefault();
               break;
             case "Escape":
             case "Delete":
               onClose();
               break;
           }
-          e.preventDefault();
         }}
       />
 
