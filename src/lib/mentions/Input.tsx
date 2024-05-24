@@ -25,7 +25,7 @@ export const Input = forwardRef<HTMLDivElement, Props>(
           }
           break;
         default:
-          if (key.match(/^[-\w’/`~!#*$@_%+=.,^&(){}[\]|;:”<>?\\]$/u)) {
+          if (key.match(/^[-\w’/`~!#*$@_%+=., ^&(){}[\]|;:”<>?\\]$/u)) {
             setValue((str) => str + key);
           }
       }
