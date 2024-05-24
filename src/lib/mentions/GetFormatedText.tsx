@@ -66,12 +66,5 @@ export function GetFormatedText({
       </span>,
     );
 
-  const toReturn = React.createElement(
-    "div",
-    {
-      className: className,
-    },
-    elements,
-  );
-  return toReturn;
+  return <div>{...elements}</div>;
 }
