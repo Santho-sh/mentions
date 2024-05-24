@@ -1,10 +1,11 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { type Post } from "@/app/page";
 import { GetFormatedText } from "../mentions/GetFormatedText";
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 
 function timeSince(date: Date) {
-  const seconds = Math.floor((new Date() - date) / 1000);
+  const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
 
   let interval = seconds / 31536000;
 
@@ -31,6 +32,18 @@ function timeSince(date: Date) {
 }
 
 export function PostsView({ posts }: props) {
+  const [, setTime] = useState(Date.now());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTime((t) => t + 5000);
+    }, 5000);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
   return (
     <div className="mb-3 w-[480px]">
       {posts.map((post, index) => (
