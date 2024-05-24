@@ -35,6 +35,15 @@ const Dropdown = ({
     inputRef.current?.focus();
   }, [show]);
 
+  useEffect(() => {
+    if (selected >= 0) {
+      const element = document.getElementById(`dropdown_item_${selected}`);
+      element?.scrollIntoView();
+    } else {
+      inputRef.current?.scrollIntoView();
+    }
+  }, [selected]);
+
   return (
     <div
       className={`absolute h-40 w-52 overflow-y-auto rounded border border-gray-300 bg-gray-50 p-1 text-gray-900 shadow-lg ${show ? "" : "hidden"}`}
@@ -79,12 +88,13 @@ const Dropdown = ({
         }}
       />
 
-      <ul className="space-y-1 ">
+      <ul className="space-y-1">
         {filtered.map((user, index) => {
           return (
             <li
               className={`cursor-pointer rounded px-1 py-1 hover:bg-gray-300 ${index == selected ? "bg-gray-300" : "bg-gray-50"}`}
               key={user.id}
+              id={`dropdown_item_${user.id}`}
               onClick={() => {
                 onSelect(user);
                 setSelected(-1);
